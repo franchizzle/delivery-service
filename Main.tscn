@@ -1,0 +1,22 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://Main.gd" type="Script" id=1]
+[ext_resource path="res://Player.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Background.tscn" type="PackedScene" id=3]
+[ext_resource path="res://UI.tscn" type="PackedScene" id=4]
+
+[node name="Main" type="Node"]
+
+script = ExtResource( 1 )
+
+[node name="Player" parent="." index="0" instance=ExtResource( 2 )]
+
+position = Vector2( 96.6537, 318.953 )
+
+[node name="ParallaxBackground" parent="." index="1" instance=ExtResource( 3 )]
+
+scroll_ignore_camera_zoom = true
+
+[node name="UI" parent="." index="2" instance=ExtResource( 4 )]
+
+
