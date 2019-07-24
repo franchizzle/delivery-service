@@ -1,9 +1,11 @@
 extends Area2D
 
-export var speed = 400  # How fast the player will move (pixels/sec).
+export var MAX_SPEED = 600  # How fast the player will move (pixels/sec).
 
 const PACKAGE = preload("res://Package.tscn")
 const RELOAD_TIME = 0.1
+const ACCELERATION = 200
+const GRAVITY = 200
 
 var screen_size  # Size of the game window.
 var sprite_frame
@@ -25,28 +27,36 @@ func _process(delta):
 	if Input.is_key_pressed(KEY_SPACE):
 		drop()
 
+
+
 func move(delta):
 	var velocity = Vector2()  # The player's movement vector.
+	
 	if Input.is_action_pressed("ui_right"):
-		velocity.x += 1
+		velocity.x += ACCELERATION
+		velocity.x = min(velocity.x, MAX_SPEED)
 	if Input.is_action_pressed("ui_left"):
-		velocity.x -= 1
+		velocity.x -= ACCELERATION
+		velocity.x = min(velocity.x, MAX_SPEED)
 	if Input.is_action_pressed("ui_down"):
-		velocity.y += 1
+		velocity.y += ACCELERATION
+		velocity.y = min(velocity.y, MAX_SPEED)
 	if Input.is_action_pressed("ui_up"):
-		velocity.y -= 1
+		velocity.y -= ACCELERATION*6
+		velocity.y = min(velocity.y, MAX_SPEED)
+	
 	if velocity.length() > 0:
-		velocity = velocity.normalized() * speed
+		velocity = velocity.normalized() * MAX_SPEED
 		$witch.play()
 	else:
 		$witch.stop()
 
 	position += velocity * delta
-	position.x = clamp(position.x, 0, screen_size.x*2)
-	position.y = clamp(position.y, 0, screen_size.y)
+	position.x = clamp(position.x, 100, screen_size.x - 100)
+	position.y = clamp(position.y, 70, screen_size.y - 70)
 	
 	# add gravity
-	position.y += 200 * delta
+	position.y += GRAVITY * delta
 	
 	if velocity.x != 0:
 		$witch.flip_v = false

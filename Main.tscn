@@ -6,17 +6,12 @@
 [ext_resource path="res://UI.tscn" type="PackedScene" id=4]
 
 [node name="Main" type="Node"]
-
 script = ExtResource( 1 )
 
-[node name="Player" parent="." index="0" instance=ExtResource( 2 )]
-
+[node name="Player" parent="." instance=ExtResource( 2 )]
 position = Vector2( 96.6537, 318.953 )
+gravity = 90.0
 
-[node name="ParallaxBackground" parent="." index="1" instance=ExtResource( 3 )]
+[node name="ParallaxBackground" parent="." instance=ExtResource( 3 )]
 
-scroll_ignore_camera_zoom = true
-
-[node name="UI" parent="." index="2" instance=ExtResource( 4 )]
-
-
+[node name="UI" parent="." instance=ExtResource( 4 )]
